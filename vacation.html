@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacation Outfits</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        .card-img-container {
+            width: 100%;
+            height: 250px; /* Fixed height for product images */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container without being distorted */
+        }
+
+        .product {
+            display: block;
+            margin-bottom: 20px; /* Adjust spacing between products */
+        }
+
+        .product-details {
+            position: relative; /* Ensure position relative for absolute positioning */
+            overflow: hidden; /* Ensure image overflow does not affect layout */
+            border: 1px solid #ddd; /* Add border around product details */
+            border-radius: 5px; /* Rounded corners for product details */
+        }
+
+        .product img {
+            width: 100%;
+            height: 100%; /* Ensures images fill the container */
+            display: block; /* Ensure image displays as block */
+            object-fit: cover; /* Ensures the image covers the container without being distorted */
+            border-radius: 5px 5px 0 0; /* Rounded top corners for image */
+        }
+
+        .product-content {
+            padding: 10px;
+        }
+
+        .product-title {
+            font-weight: bold; /* Make product title bold */
+            margin-bottom: 5px;
+        }
+
+        .product-description {
+            margin-bottom: 10px; /* Space between description and buttons */
+        }
+
+        .add-to-bag {
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: 0.3s ease; /* Smooth transition */
+            margin-bottom: 10px; /* Space between buttons */
+        }
+
+        .add-to-bag:hover {
+            background-color: #0056b3; /* Darker background on hover */
+        }
+
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* Cart icon in navbar */
+        .navbar-brand img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .cart-icon {
+            position: relative;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: red;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Right-aligned filter section */
+        .filter-section {
+            position: sticky;
+            top: 100px; /* Adjust as needed */
+            height: fit-content; /* Ensures height adjusts based on content */
+        }
+
+        .filter-options {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px; /* Space between filter and products */
+        }
+
+        .filter-options h4 {
+            margin-bottom: 10px;
+        }
+
+        .form-check {
+            margin-bottom: 10px;
+        }
+
+        /* Cart items display */
+        .cart-items {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="./images/logo.png" alt="logo"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Men</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Women</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kids</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home & Living</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Beauty</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Studio</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+                <button class="btn btn-outline-dark ms-3" onclick="viewCart()">Cart (<span id="cart-count">0</span>)</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container mt-4">
+        <h2 class="text-center">Vacation Outfits</h2>
+        <div class="row">
+            <!-- Products section -->
+            <div class="col-md-9">
+                <div class="row">
+                    <!-- Goa Outfit 1 -->
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit1.jpg" alt="Goa Outfit 1" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White and Blue Stripes</div>
+                                <div class="product-description">
+                                    <p>Stylish co-ords set with white and blue stripes, perfect for a chic beach day in Goa</p>
+                                </div>
+                                <div class="product-price">Rs.499</div>
+                                <button class="add-to-bag" onclick="addToBag('White and Blue Stripes')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Goa Outfit 2 -->
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit2.jpg" alt="Goa Outfit 2" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Goa Floral Top - Green with Pink Flowers</div>
+                                <div class="product-description">
+                                    <p>Elegant green top adorned with pink flower designs, ideal for a vibrant day in Goa</p>
+                                </div>
+                                <div class="product-price">Rs.599</div>
+                                <button class="add-to-bag" onclick="addToBag('Goa Floral Top - Green with Pink Flowers')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit3.jpg" alt="Goa Outfit 3" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Navy Blue Co-ords Set</div>
+                                <div class="product-description">
+                                    <p>Stay stylish with our navy blue co-ords set, featuring a comfortable fit and versatile design, perfect for casual outings</p>
+                                </div>
+                                <div class="product-price">Rs.899</div>
+                                <button class="add-to-bag" onclick="addToBag('Navy Blue Co-ords Set')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit4.jpeg" alt="Goa Outfit 4" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Red Dress with Intricate White Designs</div>
+                                <div class="product-description">
+                                    <p>Make a statement in our red dress adorned with intricate white designs. Perfect for both casual and formal occasions,</p>
+                                </div>
+                                <div class="product-price">Rs.699</div>
+                                <button class="add-to-bag" onclick="addToBag('Red Dress with Intricate White Designs')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit5.jpeg" alt="Goa Outfit 5" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Red Lingerie Set with Blue Shrug</div>
+                                <div class="product-description">
+                                    <p>Elevate your intimate wear with our red lingerie set featuring a delicate design, complemented by a stylish blue shrug for added charm</p>
+                                </div>
+                                <div class="product-price">Rs.5999</div>
+                                <button class="add-to-bag" onclick="addToBag('Red Lingerie Set with Blue Shrug')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit6.jpg" alt="Goa Outfit 6 " class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Pink Top with Stylish Design</div>
+                                <div class="product-description">
+                                    <p>Elevate your wardrobe with our chic pink top, featuring a stylish design that enhances your casual and semi-formal looks..</p>
+                                </div>
+                                <div class="product-price">Rs.399</div>
+                                <button class="add-to-bag" onclick="addToBag('Pink Top with Stylish Design')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit7.jpg" alt="Goa Outfit 7" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Multicolor Dress for Vibrant Style</div>
+                                <div class="product-description">
+                                    <p>Step into vibrant fashion with our multicolor dress, perfect for adding a lively touch to any occasion with its colorful and stylish design</p>
+                                </div>
+                                <div class="product-price">Rs.1999</div>
+                                <button class="add-to-bag" onclick="addToBag('Multicolor Dress for Vibrant Style')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit8.jpg" alt="Goa Outfit 8" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Purple Bodysuit for Chic Style</div>
+                                <div class="product-description">
+                                    <p>Add a touch of chic to your wardrobe with our purple bodysuit, crafted for comfort and style with its flattering fit and elegant color.</p>
+                                </div>
+                                <div class="product-price">Rs.1299</div>
+                                <button class="add-to-bag" onclick="addToBag('Purple Bodysuit for Chic Style')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product goa">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/goa-outfit9.jpg" alt="Goa Outfit 9" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">"Red Top and Skirt Set with White Flower Design</div>
+                                <div class="product-description">
+                                    <p>Elevate your ensemble with our red top and skirt set, adorned with delicate white flower designs for a touch of elegance and charm.</p>
+                                </div>
+                                <div class="product-price">Rs.1599</div>
+                                <button class="add-to-bag" onclick="addToBag('Red Top and Skirt Set with White Flower Design')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Rajasthan Outfit 1 -->
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit1.jpg" alt="Rajasthan Outfit 1" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Purple Rajputi Poshak</div>
+                                <div class="product-description">
+                                    <p>Embrace tradition and elegance with our purple Rajputi Poshak, a classic Rajasthani outfit adorned with intricate designs, perfect for cultural events and celebrations</p>
+                                </div>
+                                <div class="product-price">Rs.1599</div>
+                                <button class="add-to-bag" onclick="addToBag('Purple Rajputi Poshak')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Rajasthan Outfit 2 -->
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit2.jpg" alt="Rajasthan Outfit 2" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Yellow Rajputi Poshak </div>
+                                <div class="product-description">
+                                    <p>Capture the essence of Rajasthani culture with our vibrant yellow Rajputi Poshak, adorned with traditional motifs and intricate embroidery, </p>
+                                </div>
+                                <div class="product-price">Rs.1799</div>
+                                <button class="add-to-bag" onclick="addToBag('Yellow Rajputi Poshak ')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit3.jpg" alt="Rajasthan Outfit 3" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Lehenga with Pink Flower Design and Pink Odhani</div>
+                                <div class="product-description">
+                                    <p>Elegantly crafted, our white lehenga features delicate pink flower designs paired with a pink odhani, perfect for traditional occasions and celebrations.</p>
+                                </div>
+                                <div class="product-price">Rs.1699</div>
+                                <button class="add-to-bag" onclick="addToBag('White Lehenga with Pink Flower Design and Pink Odhani')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit4.jpg" alt="Rajasthan Outfit 4" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Pink Suit for Elegant Occasions</div>
+                                <div class="product-description">
+                                    <p>Discover elegance in our pink suit, tailored for sophisticated style with a graceful hue that complements any special occasion</p>
+                                </div>
+                                <div class="product-price">Rs.699</div>
+                                <button class="add-to-bag" onclick="addToBag('Pink Suit for Elegant Occasions')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit5.jpg" alt="Rajasthan Outfit 5" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Chiffon Saree with Purple Design</div>
+                                <div class="product-description">
+                                    <p>Exude grace and elegance in our white chiffon saree, adorned with intricate purple designs, perfect for any special occasion.</p>
+                                </div>
+                                <div class="product-price">Rs.799</div>
+                                <button class="add-to-bag" onclick="addToBag('White Chiffon Saree with Purple Design')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit6.jpg" alt="Rajasthan Outfit 6" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Yellow Suit with Gold Jewelry</div>
+                                <div class="product-description">
+                                    <p>Embrace a traditional vibe with our yellow suit, perfectly complemented by gold jewelry, creating an elegant and timeless look for special occasions</p>
+                                </div>
+                                <div class="product-price">Rs.2999</div>
+                                <button class="add-to-bag" onclick="addToBag('Yellow Suit with Gold Jewelry')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit7.jpg" alt="Rajasthan Outfit 7" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Red and Black Skirt for Bold Style</div>
+                                <div class="product-description">
+                                    <p>Make a bold fashion statement with our red and black skirt, designed to add a striking touch to your wardrobe with its vibrant colors and stylish appeal</p>
+                                </div>
+                                <div class="product-price">Rs.599</div>
+                                <button class="add-to-bag" onclick="addToBag('Red and Black Skirt for Bold Style')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit8.jpg" alt="Rajasthan Outfit 8" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Black Crop Top with Green Skirt</div>
+                                <div class="product-description">
+                                    <p>Achieve a chic and trendy look with our black crop top paired with a vibrant green skirt, perfect for both casual outings and special occasions</p>
+                                </div>
+                                <div class="product-price">Rs.1099</div>
+                                <button class="add-to-bag" onclick="addToBag('Black Crop Top with Green Skirt')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product rajasthan">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/rajasthan-outfit9.jpg" alt="Rajasthan Outfit 9" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Blue Top and Skirt Set</div>
+                                <div class="product-description">
+                                    <p>Embrace a coordinated and stylish look with our blue top and skirt set, perfect for a seamless and elegant ensemble for any occasion</p>
+                                </div>
+                                <div class="product-price">Rs.799</div>
+                                <button class="add-to-bag" onclick="addToBag('Blue Top and Skirt Set')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- kerala Outfit 1 -->
+                     <!-- Kerala Outfit 1 -->
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit1.jpg" alt="Kerala Outfit 1" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                            <div class="product-title">Kerala Bridal White Saree</div>
+                                <div class="product-description">
+                                       <p>Embody  grace and tradition with our Kerala bridal white saree, exquisitely designed for a timeless and elegant wedding look</p>
+                                </div>
+                                <div class="product-price">Rs.4999</div>
+                                <button class="add-to-bag" onclick="addToBag('Kerala Bridal White Saree')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- kerala Outfit 2 -->
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit2.jpg" alt="Kerala Outfit 2" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Crop Top and Skirt with Red Chunn</div>
+                                <div class="product-description">
+                                    <p>Achieve a striking look with our white crop top and skirt set, perfectly complemented by a vibrant red chunni for added elegance</p>
+                                </div>
+                                <div class="product-price">Rs.3999</div>
+                                <button class="add-to-bag" onclick="addToBag('White Crop Top and Skirt with Red Chunn')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit3.jpg" alt="Kerala Outfit 3" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Saree with Green Design</div>
+                                <div class="product-description">
+                                    <p>Embrace elegance with our white saree, beautifully adorned with green designs, perfect for both traditional and contemporary occasions.</p>
+                                </div>
+                                <div class="product-price">Rs.5999</div>
+                                <button class="add-to-bag" onclick="addToBag('White Saree with Green Design')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit4.jpg" alt="Kerala Outfit 4" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Blouse and Skirt with Golden Border</div>
+                                <div class="product-description">
+                                    <p>Step into elegance with our white blouse and skirt set, complemented by a green chunni and adorned with golden border designs, perfect for festive occasions and celebrations</p>
+                                </div>
+                                <div class="product-price">Rs.5099</div>
+                                <button class="add-to-bag" onclick="addToBag('White Blouse and Skirt with Golden Border')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit5.jpg" alt="Kerala Outfit 5" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Saree with Blue and Golden Border</div>
+                                <div class="product-description">
+                                    <p>Elegantly crafted, our white saree features a striking blue and golden border, making it perfect for traditional events and special occasions.</p>
+                                </div>
+                                <div class="product-price">Rs.1499</div>
+                                <button class="add-to-bag" onclick="addToBag('White Saree with Blue and Golden Border')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit6.jpg" alt="Kerala Outfit 6" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Kerala Bridal Saree in Golden with Red Border</div>
+                                <div class="product-description">
+                                    <p>Adorned with a majestic golden hue and a rich red border, our Kerala bridal saree radiates traditional elegance, perfectly complemented by exquisite golden jewelry.</p>
+                                </div>
+                                <div class="product-price">Rs.8999</div>
+                                <button class="add-to-bag" onclick="addToBag('Kerala Bridal Saree in Golden with Red Border')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit7.jpg" alt="Kerala Outfit 7" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Purple Lehenga for Elegant Occasions</div>
+                                <div class="product-description">
+                                    <p>Elevate your style with our exquisite purple lehenga, crafted to make a statement at any special occasion with its rich color and intricate design..</p>
+                                </div>
+                                <div class="product-price">Rs.1699</div>
+                                <button class="add-to-bag" onclick="addToBag('Purple Lehenga for Elegant Occasions')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit8.jpg" alt="Kerala Outfit 8" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">White Suit with Golden Border</div>
+                                <div class="product-description">
+                                    <p>Add a touch of elegance to your wardrobe with our white suit featuring a delicate golden border, perfect for classic and sophisticated styling</p>
+                                </div>
+                                <div class="product-price">Rs.499</div>
+                                <button class="add-to-bag" onclick="addToBag('White Suit with Golden Border')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 product kerala">
+                        <div class="product-details">
+                            <div class="card-img-container">
+                                <img src="./images/kerala-outfit9.jpg" alt="Kerala Outfit 9" class="card-img-top">
+                            </div>
+                            <div class="product-content">
+                                <div class="product-title">Green Skirt with Red Blouse Top</div>
+                                <div class="product-description">
+                                    <p>Create a vibrant and stylish ensemble with our green skirt paired elegantly with a red blouse top, ideal for festive occasions and celebrations</p>
+                                </div>
+                                <div class="product-price">Rs.1499</div>
+                                <button class="add-to-bag" onclick="addToBag('Green Skirt with Red Blouse Top ')">Add to Bag</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+             </div>
+            </div>
+        
+            <!-- Filter section -->
+            <div class="col-md-3">
+                <div class="filter-section">
+                    <div class="filter-options">
+                        <h4>Filter by State</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="goa" onchange="filterProducts()">
+                            <label class="form-check-label" for="goa">Goa Outfits</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="rajasthan" onchange="filterProducts()">
+                            <label class="form-check-label" for="rajasthan">Rajasthan Outfits</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="kerala" onchange="filterProducts()">
+                            <label class="form-check-label" for="kerala">kerala Outfits</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart items display -->
+        <div class="cart-items mt-4">
+            <h4>Cart Items</h4>
+            <ul id="cart-items-list"></ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76A2XKAhk6IAm9Q3I23iWJoA6ySJK2B8sf4yB7xTAU24e5A6b7b8V2KnS3yxld" crossorigin="anonymous"></script>
+
+    <script>
+        let cartCount = 0; // Variable to track cart count
+        let cartItems = []; // Array to store cart items
+
+        // Function to add item to cart
+        function addToBag(itemName) {
+            alert(`Added ${itemName} to your bag!`);
+            cartItems.push(itemName); // Add item to cart items array
+            updateCartCount(cartItems.length); // Update cart count
+            updateCartItems(); // Update displayed cart items
+        }
+
+        // Function to update cart count in UI
+        function updateCartCount(count) {
+            document.getElementById('cart-count').textContent = count;
+        }
+
+        // Function to update displayed cart items
+        function updateCartItems() {
+            let cartItemsList = document.getElementById('cart-items-list');
+            cartItemsList.innerHTML = ''; // Clear previous items
+
+            cartItems.forEach(item => {
+                let li = document.createElement('li');
+                li.textContent = item;
+                cartItemsList.appendChild(li);
+            });
+        }
+
+        // Example function to view cart (can be modified as per actual requirements)
+        function viewCart() {
+            updateCartItems(); // Update displayed cart items
+            alert("View Cart clicked!");
+        }
+
+        // Function to filter products based on checkbox selection
+        function filterProducts() {
+            let goaCheckbox = document.getElementById('goa');
+            let rajasthanCheckbox = document.getElementById('rajasthan');
+            let keralaCheckbox = document.getElementById('kerala');
+
+            let goaProducts = document.querySelectorAll('.goa');
+            let rajasthanProducts = document.querySelectorAll('.rajasthan');
+            let keralaProducts = document.querySelectorAll('.kerala');
+
+            // Show/hide Goa products based on checkbox
+            goaProducts.forEach(product => {
+                if (goaCheckbox.checked) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            // Show/hide Rajasthan products based on checkbox
+            rajasthanProducts.forEach(product => {
+                if (rajasthanCheckbox.checked) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+
+            // Show/hide Kerala products based on checkbox
+            keralaProducts.forEach(product => {
+                if (keralaCheckbox.checked) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

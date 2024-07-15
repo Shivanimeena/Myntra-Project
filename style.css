@@ -1,0 +1,10 @@
+.container img{
+   width: 100%;
+}
+
+.list-items ul li a{
+   color: #282c3f;
+}
+.list-items ul li a:hover{
+   transform: translateY(-1px);
+}

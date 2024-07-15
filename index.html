@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myntra</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS to resize the border image */
+        .border-image {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar starts here -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><img src="./images/logo.png" alt="image" width="60" height="60"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse list-items" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">Men</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Women</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Kids</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home & Living</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Beauty</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Studio</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search for products" aria-label="Search">
+                    <button class="btn btn-outline-dark" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!-- Home banner -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+                <a href="celebrity.html">
+                    <img src="./images/celebrity.png" alt="image" id="clickableImage">
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Home banner ends here -->
+
+    <!-- Border image -->
+    <div class="container text-center my-3">
+        <img src="./images/border.png" alt="border" class="border-image">
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mt-4">
+                <a href="vacation.html">
+                    <img src="./images/vacation.png" alt="image" id="clickableImage">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A2XKAhk6iAAm9Q3I23iWJoA6ySJK2B8sf4yB7xTAU24e5A6b7b8V2KnS3yxld" crossorigin="anonymous"></script>
+</body>
+
+</html>
